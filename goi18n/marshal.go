@@ -28,7 +28,9 @@ func marshalValue(messageTemplates map[string]*i18n.MessageTemplate, sourceLangu
 	for id, template := range messageTemplates {
 		if other := template.PluralTemplates[plural.Other]; sourceLanguage && len(template.PluralTemplates) == 1 &&
 			other != nil && template.Description == "" && template.LeftDelim == "" && template.RightDelim == "" {
-			v[id] = other.Src
+			m := map[string]string{}
+			m["other"] = other.Src
+			v[id] = m
 		} else {
 			m := map[string]string{}
 			if template.Description != "" {
